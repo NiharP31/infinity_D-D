@@ -16,9 +16,9 @@
 
 <div align="center">
 
-**🏅 This infinite D&D game was built during a hackathon and won a prize! 🏅**
+**🏅 Winner of the FLUX.1 Kontext AI Hackathon with Black Forest Labs and Replicate! 🏅**
 
-*Infinity demonstrates rapid prototyping, innovative AI integration, and creative D&D storytelling - all accomplished under the time pressure of a hackathon environment.*
+*Infinity demonstrates rapid prototyping, innovative AI integration, and creative D&D storytelling - all accomplished under the time pressure of a hackathon environment using cutting-edge AI technologies.*
 
 </div>
 
