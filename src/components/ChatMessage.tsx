@@ -63,7 +63,7 @@ export default function ChatMessage({ scene, isLatest, userCharacter }: ChatMess
               {userCharacter.race} {userCharacter.class}
             </div>
             <div className="text-xs text-amber-300 italic">
-              "{userCharacter.personality}"
+              &ldquo;{userCharacter.personality}&rdquo;
             </div>
           </div>
           
@@ -88,7 +88,7 @@ export default function ChatMessage({ scene, isLatest, userCharacter }: ChatMess
               </div>
               <div className="flex items-center justify-between">
                 <div className="text-xs text-slate-400 italic">
-                  "{character.personality}"
+                  &ldquo;{character.personality}&rdquo;
                 </div>
                 <div className={`text-xs font-semibold ${getRelationshipColor(character.relationshipWithPlayer)}`}>
                   {character.relationshipWithPlayer > 0 ? '+' : ''}{character.relationshipWithPlayer}

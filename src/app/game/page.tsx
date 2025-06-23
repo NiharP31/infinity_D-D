@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from 'react';
-import ChatMessage from '@/components/ChatMessage';
 import ChoiceButtons from '@/components/ChoiceButtons';
 import StoryImage from '@/components/StoryImage';
 import { Scene, UserCharacter } from '@/types/story';

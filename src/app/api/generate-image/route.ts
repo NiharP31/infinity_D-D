@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
         const errorData = await response.json();
         errorMessage = `API Error: ${errorData.detail || errorData.error || response.statusText}`;
         console.error('BFL API error:', errorData);
-      } catch (parseError) {
+      } catch {
         console.error('BFL API error (non-JSON):', response.statusText);
       }
       return NextResponse.json({ 
@@ -58,8 +58,8 @@ export async function POST(request: NextRequest) {
     let requestData;
     try {
       requestData = await response.json();
-    } catch (parseError) {
-      console.error('Failed to parse BFL response:', parseError);
+    } catch {
+      console.error('Failed to parse BFL response');
       return NextResponse.json({ 
         success: false, 
         error: 'Invalid JSON response from BFL API' 
@@ -141,7 +141,7 @@ async function pollForCompletion(pollingUrl: string, requestId: string, apiKey: 
         try {
           const errorData = await response.json();
           errorText = errorData.error || errorData.detail || response.statusText;
-        } catch (parseError) {
+        } catch {
           // Use status text if JSON parsing fails
         }
         console.error('Polling error response:', errorText);
@@ -151,8 +151,8 @@ async function pollForCompletion(pollingUrl: string, requestId: string, apiKey: 
       let result;
       try {
         result = await response.json();
-      } catch (parseError) {
-        console.error('Failed to parse polling response:', parseError);
+      } catch {
+        console.error('Failed to parse polling response');
         throw new Error('Invalid JSON response from polling API');
       }
 

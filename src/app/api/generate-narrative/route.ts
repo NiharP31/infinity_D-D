@@ -8,7 +8,7 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const { lastAction, currentScene, storyProgress }: { lastAction: string; currentScene: Scene; storyProgress?: any } = await request.json();
+    const { lastAction, currentScene, storyProgress }: { lastAction: string; currentScene: Scene; storyProgress?: Record<string, unknown> } = await request.json();
 
     if (!lastAction || !currentScene) {
       return NextResponse.json({ error: 'Action and scene context are required' }, { status: 400 });
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       - Scene Number: ${storyProgress.sceneNumber || 1}
       - Tension Level: ${storyProgress.tensionLevel || 'medium'}
       - Total Character Interactions: ${storyProgress.totalActions || 0}
-      - Recent Action Type: ${storyProgress.actionHistory?.[0] || 'unknown'}
+      - Recent Action Type: ${(storyProgress.actionHistory as string[])?.[0] || 'unknown'}
     ` : '';
 
     const systemPrompt = `
@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Helper function to create fallback narrative
-function createFallbackNarrative(action: string, scene: any): string {
+function createFallbackNarrative(action: string, scene: Scene): string {
   const location = scene.location || 'the tavern';
   return [
     `You ${action.toLowerCase()} in ${location}, the atmosphere thick with anticipation.`,

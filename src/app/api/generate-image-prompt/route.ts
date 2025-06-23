@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { primaryText, location, characterInfo, atmosphere } = await request.json();
+    const { primaryText } = await request.json();
 
     if (!primaryText) {
       return NextResponse.json({ error: 'Primary text is required' }, { status: 400 });

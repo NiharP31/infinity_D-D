@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { Scene } from '@/types/story';
+import { useState, useEffect, useCallback } from 'react';
 
 interface StoryImageProps {
   imagePrompts: string[];
@@ -12,12 +11,6 @@ export default function StoryImage({ imagePrompts, imageUrls = [], isLoading = f
   const [generatedImages, setGeneratedImages] = useState<string[]>([]);
   const [loadingStates, setLoadingStates] = useState<boolean[]>([false, false]);
   const [errorStates, setErrorStates] = useState<boolean[]>([false, false]);
-
-  useEffect(() => {
-    if (imagePrompts.length > 0 && !isLoading) {
-      generateImages();
-    }
-  }, [imagePrompts, isLoading]);
 
   const generateSingleImage = async (prompt: string, index: number, retryCount = 0): Promise<string | null> => {
     const maxRetries = 2;
@@ -38,7 +31,7 @@ export default function StoryImage({ imagePrompts, imageUrls = [], isLoading = f
         try {
           const errorData = await response.json();
           errorMessage = errorData.error || errorMessage;
-        } catch (parseError) {
+        } catch {
           // Use default error message if JSON parsing fails
         }
         
@@ -72,7 +65,7 @@ export default function StoryImage({ imagePrompts, imageUrls = [], isLoading = f
     }
   };
 
-  const generateImages = async () => {
+  const generateImages = useCallback(async () => {
     setLoadingStates([true, true]);
     setErrorStates([false, false]);
     
@@ -102,7 +95,13 @@ export default function StoryImage({ imagePrompts, imageUrls = [], isLoading = f
     } finally {
       setLoadingStates([false, false]);
     }
-  };
+  }, [imagePrompts]);
+
+  useEffect(() => {
+    if (imagePrompts.length > 0 && !isLoading) {
+      generateImages();
+    }
+  }, [imagePrompts, isLoading, generateImages]);
 
   const createFallbackImage = (index: number): string => {
     // Create a data URL for a simple fallback image

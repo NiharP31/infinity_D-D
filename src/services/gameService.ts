@@ -1,7 +1,7 @@
 import { Character, Scene, StoryChoice, UserCharacter } from '@/types/story';
 
 // Track used choices to prevent repetition
-let usedChoices: Set<string> = new Set();
+const usedChoices: Set<string> = new Set();
 
 // Function to reset used choices (for new games or when all choices are exhausted)
 function resetUsedChoices() {
@@ -207,7 +207,7 @@ async function generateImagePrompt(scene: Scene, narrative?: string): Promise<st
   }
 }
 
-async function generateNarrative(lastAction: string, currentScene: Scene, storyProgress: any): Promise<string> {
+async function generateNarrative(lastAction: string, currentScene: Scene, storyProgress: Record<string, unknown>): Promise<string> {
   try {
     const response = await fetch('/api/generate-narrative', {
       method: 'POST',
